@@ -1,6 +1,12 @@
 import socket
 import time
+from select import select
 
+
+tasks = []
+
+to_read = {}
+to_write = {}
 
 def server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -34,4 +40,14 @@ def client(client_socket):
     client_socket.close()
 
 
-server()
+def event_loop():
+    while any(tasks, to_read, to_write):
+        while not tasks:
+            ready_to_read, ready_to_write, _ = select(to_read, to_write, [])
+
+            for sock in ready_to_read:  # тут надо эти списки обработать
+                tasks.append(to_read[sock])  # докинуть сюда генераторы
+
+
+
+tasks.append(server())
