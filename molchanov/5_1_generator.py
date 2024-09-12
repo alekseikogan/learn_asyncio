@@ -25,9 +25,10 @@ def average():
             x = yield average
         except StopIteration:
             print('Done')
+            break
         else:
             print('Мы после try')
             count += 1
             summ += x
             average = round(summ / count, 2)
-
+    return average
