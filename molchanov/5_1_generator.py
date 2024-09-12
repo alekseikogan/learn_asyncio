@@ -4,8 +4,17 @@ def gen():
     print(f'Получено сообщение: {message}')
 
 
+def decor(func):
+    def inner(*args, **kwargs):
+        g = func(*args, **kwargs)
+        g.send(None)
+        return g
 
-def calc():
+    return inner
+
+
+@decor
+def average():
     count = 0
     summ = 0
     average = None
@@ -22,9 +31,3 @@ def calc():
             summ += x
             average = round(summ / count, 2)
 
-g = calc()
-g.send(None)
-g.send(4)
-g.send(5)
-g.send(6)
-g.send(7)
