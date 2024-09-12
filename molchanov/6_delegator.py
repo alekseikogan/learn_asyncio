@@ -12,7 +12,7 @@ def decor(func):
     return inner
 
 
-@decor
+
 def subgen():
     while True:
         try:
@@ -25,9 +25,10 @@ def subgen():
 
 @decor
 def deleg(g):
-    while True:
-        try:
-            data = yield
-            g.send(data)
-        except BlaExp as e:
-            g.throw(e)
+    # while True:
+    #     try:
+    #         data = yield
+    #         g.send(data)
+    #     except BlaExp as e:
+    #         g.throw(e)
+    yield from g
