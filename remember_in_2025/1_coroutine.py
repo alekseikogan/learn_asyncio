@@ -17,14 +17,15 @@ async def sec():
     print('Спим 3 секнуду')
     await asyncio.sleep(3) 
     print('Спим 3 секнуду')
-    await asyncio.sleep(3)
+    await asyncio.sleep(2)
     print('Сейчас должна вернуться 1 кортина')
 
 
 async def main():
-    await asyncio.gather(
+    res = await asyncio.gather(
         example_coroutine(5),
         sec()
     )
+    print(res)
 
 asyncio.run(main())
